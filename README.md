@@ -1,5 +1,6 @@
 # Understanding Certified Training with Interval Bound Propagation
 
+This is the code repository for [propagation tightness](https://arxiv.org/abs/2306.10426).
 
 ## Environment
 
@@ -41,3 +42,9 @@ To reproduce all our experiments please run the following scripts
 
 As training all models takes some time, we release pre-trained models [here](https://mega.nz/file/GeRlmZyK#K-JGtFPdZ8HA3V3qHEimTHfOipk6fajna7yEbBSmD5Y). 
 Due to space constraints on our hosting, we only include models for one random seed (still 10GB) for the width and depth experiments. We also include 4x model for MNIST eps=0.3 and 2x model for CIFAR eps=1/255 where enlarging width leads to SOTA performance.
+
+License and Copyright
+---------------------
+
+* Copyright (c) 2024 [Secure, Reliable, and Intelligent Systems Lab (SRI), Department of Computer Science ETH Zurich](https://www.sri.inf.ethz.ch/)
+* Licensed under the [Apache License](https://www.apache.org/licenses/LICENSE-2.0)
