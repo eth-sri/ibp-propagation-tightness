@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# --- run this to transform downloaded COLT nets into our nets ---
+
+# CUDA_VISIBLE_DEVICES=0 python3 colt_process.py \
+#     --dataset cifar10 \
+#     --net ConvMedBig \
+#     --cert-weight 1 \
+#     --train-eps 0.0078431 --test-eps 0.0078431 \
+#     --load-model colt_models/cifar10_2_255_convmedbig_flat_2_2_4_250.pt \
+#     --save-dir colt_models/eps_0.0078431 \
+#     --train-batch 128 --test-batch 128 \
+
+
+# CUDA_VISIBLE_DEVICES=0 python3 colt_process.py \
+#     --dataset cifar10 \
+#     --net ConvMed \
+#     --cert-weight 1 \
+#     --train-eps 0.031373 --test-eps 0.031373 \
+#     --load-model colt_models/cifar10_8_255_convmed_flat_2_4_250.pt \
+#     --save-dir colt_models/eps_0.031373 \
+#     --train-batch 128 --test-batch 128 \
+
+
+# --- run this to get the stats ---
+
+# python3 get_stat.py \
+#         --dataset cifar10 \
+#         --net ConvMedBig \
+#         --cert-weight 1 \
+#         --train-eps 0.0078431 --test-eps 0.0078431 \
+#         --load-model colt_models/eps_0.0078431/ \
+#         --train-batch 128 --test-batch 32
+
+# python3 get_stat.py \
+#         --dataset cifar10 \
+#         --net ConvMed \
+#         --cert-weight 1 \
+#         --train-eps 0.031373 --test-eps 0.031373 \
+#         --load-model colt_models/eps_0.031373/ \
+#         --train-batch 128 --test-batch 32

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+filename=test_IBP_0.001.json
+rm output.txt
+for net in cnn_3layer
+do
+    for seed in 1 12 123
+    do
+        for eps in 1e-05 5e-05 0.0001 0.0005 0.001 0.005 0.01 0.05 0.1
+        do
+            d=eps_models/seed_$seed/cifar10/eps$eps/adv_trained/$net/init_default/alpha5.0/certW_1.0/anneal_80/partial_PI_0_target_0.5/$filename
+            echo PGD: seed:$seed eps:$eps file:$filename >> output.txt
+            awk '/test_loss/{print}' $d >> output.txt
+            d=eps_models/seed_$seed/cifar10/eps$eps/box_trained/$net/init_fast/alpha5.0/certW_1.0/anneal_80/fast_reg/partial_PI_0_target_0.5/$filename
+            echo IBP: seed:$seed eps:$eps file:$filename >> output.txt
+            awk '/test_loss/{print}' $d >> output.txt
+            d=eps_models/seed_$seed/cifar10/eps$eps/small_box_trained/$net/init_fast/alpha5.0/certW_1.0/anneal_80/fast_reg/lambda_0.4/partial_PI_0_target_0.5/$filename
+            echo SABR: seed:$seed eps:$eps file:$filename >> output.txt
+            awk '/test_loss/{print}' $d >> output.txt
+        done
+    done
+done

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# ---- example usage of get_stat.py ----
+
+# CUDA_VISIBLE_DEVICES=7 python3 get_stat.py \
+#     --dataset cifar10 \
+#     --net cnn_7layer_bn \
+#     --cert-weight 1 \
+#     --train-eps 0.0078431 --test-eps 0.0078431 \
+#     --load-model your-model-dir-here \
+#     --train-batch 128 --test-batch 128
+
+# cmds=()
+
+# # for net in cnn_7layer_w32_bn cnn_7layer_w128_bn cnn_7layer_w256_bn cnn_7layer_w512_bn cnn_7layer_w1024_bn
+# for net in cnn_7layer_bn
+# # for net in cnn_3layer cnn_3layer_bn cnn_5layer cnn_5layer_bn cnn_7layer cnn_7layer_bn  cnn_9layer cnn_9layer_bn cnn_11layer cnn_11layer_bn cnn_13layer cnn_13layer_bn
+# do
+#     for seed in 1 12 123
+#     # # for net in cnn_3layer cnn_3layer_bn cnn_5layer cnn_5layer_bn cnn_7layer cnn_7layer_bn cnn_7layer_w128_bn   cnn_7layer_w32_bn  cnn_9layer_bn cnn_11layer_bn 
+#     # # for net in cnn_7layer_bn
+#     do
+#         # for eps in 1e-05 5e-05 0.0001 0.0005 0.001 0.005 0.01 0.05 0.1
+#         for eps in 0.0078431 0.031373
+#         do
+#             # for lambda in 0.1 0.4 0.7
+#             for relu in 4 8 11
+#             do
+#                 c="python3 get_stat.py \
+#                     --dataset cifar10 \
+#                     --net $net \
+#                     --cert-weight 1 \
+#                     --train-eps $eps --test-eps $eps \
+#                     --load-model test_models/seed_$seed/cifar10/eps$eps/small_TAPS_trained/$net/init_fast/alpha5.0/certW_1.0/anneal_80/fast_reg/last_block_$relu/partial_PI_0_target_0.5/ \
+#                     --train-batch 128 --test-batch 32"
+#                     cmds+=("$c")
+#             done
+#         done
+#     done
+# done
+
+
+# gpu_list=(0)
+# gpu_prefix="CUDA_VISIBLE_DEVICES"
+# num_gpus=${#gpu_list[@]}
+
+# num_cmds=${#cmds[@]}
+# echo "Commands in total will run: $num_cmds"
+# echo "Number of parallel tasks for each GPU?"
+# read max_parallel_task
+# echo "Estimated time for each process in secs?"
+# read estimation
+# secs=$(($estimation * $num_cmds / $max_parallel_task / $num_gpus))
+# echo "Your estimated execution time:"
+
+# printf '%02dh:%02dm:%02fs\n' $(echo -e "$secs/3600\n$secs%3600/60\n$secs%60"| bc)
+
+# echo "Running in a screen is highly recommended. Proceed? y/n: "
+# read decision
+
+# if [ $decision != "y" ]
+# then
+#     exit
+# else
+#     echo "Your job will start now. Good luck!"
+#     sleep 1
+# fi
+
+# for ((i = 0; i < ${#cmds[@]}; i++))
+# do
+#     gpu_index="$(($i % ($num_gpus * $max_parallel_task) ))"
+#     c="$gpu_prefix=${gpu_list[$(($gpu_index / $max_parallel_task))]} ${cmds[$i]}"
+#     if [ "$(( $(($i + 1)) % $(($num_gpus * $max_parallel_task)) ))" == "0" ] || [ "$(($i + 1))" == $num_cmds ]
+#     then
+#         true
+#     else
+#         c="$c &"
+#     fi
+#     eval " $c"
+# done
