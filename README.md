@@ -1,6 +1,6 @@
-# Understanding Certified Training with Interval Bound Propagation
+# Propagation Tightness of IBP
 
-This is the code repository for [propagation tightness](https://arxiv.org/abs/2306.10426).
+This is the code repository for the ICLR'24 paper [Understanding Certified Training with Interval Bound Propagation](https://arxiv.org/abs/2306.10426).
 
 ## Environment
 
